@@ -1,35 +1,25 @@
-const mongoose= require('mongoose');
-const userSchema= mongoose.Schema({
-    user_id:{
-        type:String,
-        require:true
-       
-    },
-    name:{
-       
-        type:String,
-        require:true
-    },
-    email:{
-        type:email,
-        require:true
-    },
-    password:{
-        type:String,
-        require:true
-
-    },
-    phone_number:{
-        type:Number,
-        require:true
-    },
-    serial_number:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:microcontrollers
-
-    }
-
-    
-
+const { string } = require("joi");
+const mongoose = require("mongoose");
+const userSchema = mongoose.Schema({
+  name: {
+    type: String,
+    require: true,
+  },
+  email: {
+    type: String,
+    require: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  phone_number: {
+    type: Number,
+    require: true,
+  },
+  serial_number: {
+    type: String,
+    require: true,
+  },
 });
-exports.User = mongoose.model('User',userSchema);
+module.exports = mongoose.model("User", userSchema);

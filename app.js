@@ -1,18 +1,21 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+require("./src/config/database")();
 
 // ... other middleware code ...
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
 
 // imporitng local routes
-const mccRouter = require("./src/app/routes/microcontrollersRoute");
+const sensorsRoute = require("./src/app/routes/sensorsRoute");
+const registrationRoute = require("./src/app/routes/registrationRoute");
 
 // Mount the reading under the '/api/read' prefix
-app.use("/api/microcontrollers", mccRouter);
-// ... other middleware and server setup code ...
+app.use("/api/microcontrollers", sensorsRoute);
+app.use("/api/register", registrationRoute);
 
+// ... other middleware and server setup code ...
 const port = process.env.PORT || 3500;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

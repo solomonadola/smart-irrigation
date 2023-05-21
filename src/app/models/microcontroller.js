@@ -1,16 +1,12 @@
-const mongoose= require('mongoose');
-const microcontrollerSchema= mongoose.Schema({
-    serial_number:{
-        type: String,
-       require:true
-
-    },
-  location:{
-        type:String,
-        require:true
-       
-    }
-    
-
+const mongoose = require("mongoose");
+const microcontrollerSchema = mongoose.Schema({
+  serial_number: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
 });
-exports.Microcontroller = mongoose.model('User',microcontrollerSchema);
+module.exports = mongoose.model("Microcontroller", microcontrollerSchema);
