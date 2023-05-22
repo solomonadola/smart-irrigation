@@ -12,7 +12,7 @@ const sensorsRoute = require("./src/app/routes/sensorsRoute");
 const registrationRoute = require("./src/app/routes/registrationRoute");
 
 // Mount the reading under the '/api/read' prefix
-app.use("/api/microcontrollers", sensorsRoute);
+app.use("/api/sensors", sensorsRoute);
 app.use("/api/register", registrationRoute);
 
 // ... other middleware and server setup code ...

@@ -3,13 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 // require controllers here
-const { handleSensorData } = require("../controllers/sensorsController");
+const {
+  handleSensorData,
+  getAnalyzedData,
+} = require("../controllers/sensorsController");
 // GET /req
-router.get("/data", (req, res) => {
-  // Logic to handle GET /request
-  // logic to handle the get request
-  res.send(req.body);
-});
+router.get("/data", getAnalyzedData);
 
 // POST /req to store sensor reading into database
 router.post("/data", handleSensorData);

@@ -3,6 +3,7 @@
 const sensorsService = require("../services/sensorsService");
 
 // Handle the received data from the MCC sensors
+exports.getAnalyzedData = async (req, res) => {};
 exports.handleSensorData = async (req, res) => {
   try {
     //should the validation of data goes here or in the service handler

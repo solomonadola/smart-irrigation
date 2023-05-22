@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 const sensorSchema = mongoose.Schema({
-  sensor_id: {
-    type: String,
-    require: true,
-  },
   serial_number: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Microcontroller",
+    type: String,
     required: true,
   },
   sensing_type: {
@@ -14,4 +9,4 @@ const sensorSchema = mongoose.Schema({
     require: true,
   },
 });
-exports.Sensor = mongoose.model("Sensor", sensorSchema);
+module.exports = mongoose.model("Sensor", sensorSchema);

@@ -16,4 +16,4 @@ const sensorDataSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("SensorData", sensorDataSchema);
+module.exports = mongoose.model("SensorReading", sensorDataSchema);

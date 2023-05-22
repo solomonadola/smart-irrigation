@@ -5,9 +5,6 @@ exports.handleRegistration = async (req, res) => {
   try {
     //should the validation of data goes here or in the service handler
     const { serial_number, location, ...user } = req.body;
-    user.serial_number = serial_number;
-    console.log(user);
-    console.log([serial_number, location]);
     const registrationData = await registirationService.register(user, {
       serial_number,
       location,
