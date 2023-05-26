@@ -12,31 +12,39 @@ exports.getSensorData = async () => {
 exports.storeSensorData = async (data) => {
   try {
     //add some validation here
-    const { moisture, tempHumidity } = data;
+    const { moisture, temperature, humidity, serial_number } = data;
     const sensor1 = Sensor.find({
-      serial_number: moisture.serial_number,
+      serial_number: serial_number,
       sensing_type: "moisture",
     })
       .select("_id")
       .exec();
     const sensor2 = Sensor.find({
-      serial_number: tempHumidity.serial_number,
-      sensing_type: "temprature_humidity",
+      serial_number: serial_number,
+      sensing_type: "temprature",
+    });
+    const sensor3 = Sensor.find({
+      serial_number: serial_number,
+      sensing_type: "humidity",
     })
       .select("_id")
       .exec();
 
-    Promise.all([sensor1, sensor2])
-      .then(([sensor1, sensor2]) => {
+    Promise.all([sensor1, sensor2, sensor3])
+      .then(([sensor1, sensor2, sensor3]) => {
         const sensor1Id = sensor1[0]._id.toString();
         const sensor2Id = sensor2[0]._id.toString();
+        const sensor3Id = sensor3[0]._id.toString();
 
         // Use the sensor IDs as needed
         moisture.sensor = sensor1Id;
-        tempHumidity.sensor = sensor2Id;
-        SensorReading.insertMany([moisture, tempHumidity])
+        temperature.sensor = sensor2Id;
+        humidity.sensor = sensor3Id;
+
+        SensorReading.insertMany([moisture, temperature, humidity])
           .then((createdSensors) => {
             console.log("Sensors created:", createdSensors);
+            return createdSensors;
             // Handle the success response
           })
           .catch((error) => {

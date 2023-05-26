@@ -17,13 +17,18 @@ exports.register = async (userData, microcontrollerData) => {
     });
     const sensor2 = new Sensor({
       serial_number: microcontrollerData.serial_number,
-      sensing_type: "temprature_humidity",
+      sensing_type: "temprature",
+    });
+    const sensor3 = new Sensor({
+      serial_number: microcontrollerData.serial_number,
+      sensing_type: "humidity",
     });
     await mcc.save();
     await user.save();
     await sensor1.save();
     await sensor2.save();
-    return [user, mcc, sensor1, sensor2];
+    await sensor3.save();
+    return [user, mcc, sensor1, sensor2, sensor3];
   } catch (error) {
     throw new Error("Failed to store registration data", error);
   }
