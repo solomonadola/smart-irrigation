@@ -21,15 +21,15 @@ fs.createReadStream("dataset.csv")
   })
   .on("end", () => {
     // Create and train the kNN regression model
-    const k = 5; // Number of nearest neighbors to consider
+    const k = 10; // Number of nearest neighbors to consider
     const knnModel = new KNNRegression(features, labels, { k });
 
     // Predict new data
     const newData = [
-      [0.35, 25, 60],
-      [0.28, 24, 58],
-      [0.45, 26, 62],
-      [0.33, 26, 58],
+      [35, 25, 6],
+      [28, 50, 20],
+      [45, 26, 42],
+      [55, 20, 68],
     ];
     const predictions = newData.map((data) => knnModel.predict(data));
 
