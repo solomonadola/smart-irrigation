@@ -9,11 +9,11 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bo
 
 // imporitng local routes
 const sensorsRoute = require("./src/app/routes/sensorsRoute");
-const registrationRoute = require("./src/app/routes/registrationRoute");
+const AuthRoute = require("./src/app/routes/AuthRoute");
 
 // Mount the reading under the '/api/read' prefix
 app.use("/api/sensors", sensorsRoute);
-app.use("/api/register", registrationRoute);
+app.use("/api/register", AuthRoute);
 
 // ... other middleware and server setup code ...
 const port = process.env.PORT || 3500;

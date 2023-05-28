@@ -1,4 +1,4 @@
-const registirationService = require("../services/registrationService");
+const registirationService = require("../services/AuthService");
 
 // Handle the received data from the MCC sensors
 exports.handleRegistration = async (req, res) => {
