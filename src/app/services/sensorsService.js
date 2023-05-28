@@ -2,12 +2,13 @@
 
 const SensorReading = require("../models/sensor_reading");
 const Sensor = require("../models/sensor");
+const { prediction } = require("../ml/ml-knn");
 
 // Store sensor data in the database
-exports.getSensorData = async () => {
-  // i can't just simply send the sensor data here it requires processed data
-  // that can be used by the microcontroller to do its operation
-  // but for the test purpose i'm going to send mock data
+exports.predictAction = async (sensorData) => {
+  // here we can get the predicted action from the ml
+  const predicted = await prediction(sensorData);
+  return predicted;
 };
 exports.storeSensorData = async (data) => {
   try {
