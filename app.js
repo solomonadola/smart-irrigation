@@ -13,7 +13,7 @@ const AuthRoute = require("./src/app/routes/AuthRoute");
 
 // Mount the reading under the '/api/read' prefix
 app.use("/api/sensors", sensorsRoute);
-app.use("/api/register", AuthRoute);
+app.use("/api/auth/", AuthRoute);
 
 // ... other middleware and server setup code ...
 const port = process.env.PORT || 3500;
