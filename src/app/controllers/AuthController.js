@@ -1,9 +1,13 @@
 const authService = require("../services/AuthService");
-
+const { validateRegistration } = require("../../utils/Validation");
 // Handle recived registration data
 exports.handleRegistration = async (req, res) => {
   try {
-    //should the validation of data goes here or in the service handler
+    // the validation of data goes here
+    const error = await validateRegistration(req.body);
+    if (error) {
+      return res.send(error.message);
+    }
     const { serial_number, location, ...user } = req.body;
     user.serial_number = serial_number;
     const registrationData = await authService.register(user, {
@@ -11,10 +15,11 @@ exports.handleRegistration = async (req, res) => {
       location,
     });
     res.status(200).json({
-      message: "registration data received and stored successfully",
+      message: "registration successful",
       data: registrationData,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Failed to store registration data" });
   }
 };

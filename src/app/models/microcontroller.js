@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const microcontrollerSchema = mongoose.Schema({
   serial_number: {
     type: String,
+    unique: true,
     required: true,
   },
   location: {
@@ -9,4 +10,9 @@ const microcontrollerSchema = mongoose.Schema({
     required: true,
   },
 });
-module.exports = mongoose.model("Microcontroller", microcontrollerSchema);
+const Microcontroller = mongoose.model(
+  "Microcontroller",
+  microcontrollerSchema
+);
+Microcontroller.createIndexes();
+module.exports = Microcontroller;

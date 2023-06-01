@@ -31,14 +31,15 @@ exports.register = async (userData, microcontrollerData) => {
       serial_number: microcontrollerData.serial_number,
       sensing_type: "humidity",
     });
+
     await mcc.save();
     await user.save();
     await sensor1.save();
     await sensor2.save();
     await sensor3.save();
     return [user, mcc, sensor1, sensor2, sensor3];
-  } catch (error) {
-    throw new Error("Failed to store registration data", error);
+  } catch (regError) {
+    return regError;
   }
 };
 

@@ -15,3 +15,5 @@ with open(filename, mode='w', newline='') as file:
     writer.writerows(combinations)
 
 print(f"CSV file '{filename}' has been generated.")
+
+
