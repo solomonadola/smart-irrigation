@@ -14,9 +14,9 @@ const AuthRoute = require("./src/app/routes/AuthRoute");
 // Mount the reading under the '/api/read' prefix
 app.use("/api/sensors", sensorsRoute);
 app.use("/api/auth/", AuthRoute);
-
+app.get("/", (req, res) => res.send("Home Page Route"));
 // ... other middleware and server setup code ...
-const port = process.env.PORT || 3500;
+const port = process.env.PORT || 80;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
