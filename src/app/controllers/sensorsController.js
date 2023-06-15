@@ -27,6 +27,6 @@ exports.handleSensorData = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to store sensor data" });
+    res.status(500).json({ error: "Failed to store sensor data" + error });
   }
 };

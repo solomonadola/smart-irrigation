@@ -1,6 +1,6 @@
 const Joi = require("joi");
 // // user Joi schema
-const userSchema = Joi.object({
+const registrationSchema = Joi.object({
   firstName: Joi.string().alphanum().min(3).max(30).required(),
   lastName: Joi.string().alphanum().min(3).max(30).required(),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
@@ -10,9 +10,17 @@ const userSchema = Joi.object({
   serial_number: Joi.string().required(),
   username: Joi.string().min(3).max(30),
   location: Joi.string().min(3).max(30),
-  user_type: Joi.string().valid("farmer", "agronomist"),
 });
-
+const loginSchema = Joi.object({
+  serial_number: Joi.string().required(),
+  password: Joi.string().required(),
+});
+const sensorReadingSchema = Joi.object({
+  sensor: Joi.string().required(),
+  reading: Joi.string().required(),
+});
 module.exports = {
-  userSchema,
+  registrationSchema,
+  loginSchema,
+  sensorReadingSchema,
 };

@@ -33,7 +33,6 @@ exports.storeSensorData = async (data) => {
     const sensor1Id = sensor1._id.toString();
     const sensor2Id = sensor2._id.toString();
     const sensor3Id = sensor3._id.toString();
-
     moisture.sensor = sensor1Id;
     temperature.sensor = sensor2Id;
     humidity.sensor = sensor3Id;

@@ -25,7 +25,7 @@ exports.register = async (userData, microcontrollerData) => {
     });
     const sensor2 = new Sensor({
       serial_number: microcontrollerData.serial_number,
-      sensing_type: "temprature",
+      sensing_type: "temperature",
     });
     const sensor3 = new Sensor({
       serial_number: microcontrollerData.serial_number,
@@ -45,9 +45,9 @@ exports.register = async (userData, microcontrollerData) => {
 
 //login api implementation
 
-exports.login = async (serial_number, password) => {
+exports.login = async (loginData) => {
   // Find the user by loginId in the database
-  const user = await User.findOne({ serial_number: serial_number });
+  const user = await User.findOne({ serial_number: loginData.serial_number });
   console.log(user);
   // If user not found, return an error message
   if (!user || user === null) {
@@ -56,7 +56,10 @@ exports.login = async (serial_number, password) => {
   }
 
   // Compare the provided password with the stored hashed password
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  const isPasswordValid = await bcrypt.compare(
+    loginData.password,
+    user.password
+  );
 
   // If passwords do not match, return an error
   if (!isPasswordValid) {
