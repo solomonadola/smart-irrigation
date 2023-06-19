@@ -9,7 +9,7 @@ exports.handleRegistration = async (req, res) => {
     // the validation of data goes here
     const error = await validateRegistration(req.body);
     if (error) {
-      return res.send(error.details);
+      return res.send(error.message);
     }
     const { serial_number, location, ...user } = req.body;
     user.serial_number = serial_number;

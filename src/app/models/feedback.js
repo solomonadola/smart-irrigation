@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 const feedbackSchema = mongoose.Schema({
-  feedback_id: {
-    type: String,
-    require: true,
-  },
   prediction_id: {
     type: String,
     require: true,

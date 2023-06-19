@@ -1,29 +1,19 @@
-const mongoose= require('mongoose');
-const logsSchema= mongoose.Schema({
-    log_id:{
-        type:String,
-        require:true
-       
+const mongoose = require("mongoose");
+const logsSchema = mongoose.Schema({
+  serial_number: {
+    type: String,
+    ref: microcontrollers,
+  },
+
+  log_detail: [
+    {
+      type: String,
+      default: "",
     },
-    serial_number:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: microcontrollers
-
-    },
-
-    log_detail:[{
-       
-        type:String,
-        default:""
-      
-    }],
-    log_date:{
-        type:Date,
-       default: Date.now
-    }
-   
-  
-    
-
+  ],
+  log_date: {
+    type: Date,
+    default: Date.now,
+  },
 });
-exports.Logs = mongoose.model('Logs',logsSchema);
+exports.Logs = mongoose.model("Logs", logsSchema);
