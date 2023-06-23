@@ -8,11 +8,11 @@ Smart Irrigation aims to optimize water usage in agricultural practices by lever
 
 ## Features
 
-- **Machine Learning:** The backend API incorporates machine learning algorithms to analyze various data inputs such as weather forecasts, soil moisture levels, and crop requirements. This analysis allows for accurate predictions and smart decision-making regarding irrigation scheduling.
+- **Machine Learning:** The backend API incorporates machine learning algorithms to analyze various data inputs such as, soil moisture levels, temprature and humidity and rain data. This analysis allows for accurate predictions and smart decision-making regarding irrigation scheduling.
 
-- **Data Analysis:** With advanced data analysis techniques, the API interprets incoming data streams and provides valuable insights into crop health, soil conditions, and irrigation patterns. These insights help farmers make informed decisions to enhance productivity and conserve water resources.
+- **Data Analysis:** With advanced data analysis techniques, the API interprets incoming data streams and provides valuable insights soil conditions, and irrigation patterns. These insights help farmers make informed decisions to enhance productivity and conserve water resources.
 
-- **Integration:** The API seamlessly integrates with other APIs, enabling access to diverse data sources such as weather APIs, soil moisture sensors, and crop databases. This integration enhances the system's capabilities, providing comprehensive information for efficient irrigation management.
+
 
 ## Installation
 
