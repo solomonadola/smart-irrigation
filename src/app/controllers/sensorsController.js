@@ -21,12 +21,25 @@ exports.handleSensorData = async (req, res) => {
     const sensorData = await sensorsService.storeSensorData(req.body);
     const prediction = await getAnalyzedData(req.body);
     res.status(200).json({
-      message: "Sensor data received stored and analyzed successfully",
-      data: sensorData,
       predict: prediction,
+      sensorData: sensorData,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to store sensor data" + error });
+  }
+};
+exports.getSensorReadings = async (req, res) => {
+  try {
+    const { serial_number } = req.params;
+
+    const sensorReadings = await sensorsService.getSensorReadings(
+      serial_number
+    );
+
+    res.json({ sensorReadings });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch sensor readings" });
   }
 };

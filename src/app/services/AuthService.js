@@ -46,13 +46,12 @@ exports.register = async (userData, microcontrollerData) => {
 //login api implementation
 
 exports.login = async (loginData) => {
-  // Find the user by loginId in the database
+  // Find the user by serial number in the database
   const user = await User.findOne({ serial_number: loginData.serial_number });
-  console.log(user);
-  // If user not found, return an error message
+
+  // If user not found, throw an error
   if (!user || user === null) {
-    //response code for non-existing user
-    return "this user doesn't exist";
+    throw new Error("This user doesn't exist");
   }
 
   // Compare the provided password with the stored hashed password
@@ -61,16 +60,19 @@ exports.login = async (loginData) => {
     user.password
   );
 
-  // If passwords do not match, return an error
+  // If passwords do not match, throw an error
   if (!isPasswordValid) {
-    //responose for for worong credential
-    return "incorrect credential";
+    throw new Error("Incorrect credentials");
   }
 
   // Generate a JSON Web Token (JWT)
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-  console.log(user);
+  const token = jwt.sign(
+    { userId: user.serial_number },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1w",
+    }
+  );
+
   return token;
 };

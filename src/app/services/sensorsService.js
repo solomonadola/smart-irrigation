@@ -42,12 +42,40 @@ exports.storeSensorData = async (data) => {
       temperature,
       humidity,
     ]);
-
     // Handle the success response
     return createdSensors;
   } catch (error) {
     console.error("Error while storing sensor data:", error);
     // Handle the error response
     throw new Error("Failed to store sensor data");
+  }
+};
+exports.getSensorReadings = async (serial_number) => {
+  {
+    try {
+      // Find the sensor based on the serial_number
+      const sensors = await Sensor.find({ serial_number });
+
+      if (!sensors) {
+        throw new Error("Sensor not found");
+      }
+      console.log(sensors);
+
+      // Fetch the sensor readings using the sensor ID
+      const sensorids = sensors.map((sensor) => sensor._id);
+      console.log(sensorids);
+
+      const sensorReadings = await SensorReading.find({
+        sensor: { $in: sensorids },
+      })
+        .sort({ readingTime: -1 })
+        .limit(3)
+        .populate("sensor", "sensing_type -_id");
+      console.log(sensorReadings);
+
+      return sensorReadings;
+    } catch (error) {
+      throw new Error("Failed to fetch sensor readings");
+    }
   }
 };

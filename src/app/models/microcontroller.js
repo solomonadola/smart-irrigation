@@ -9,6 +9,10 @@ const microcontrollerSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  mode: {
+    type: String,
+    default: "auto",
+  },
 });
 const Microcontroller = mongoose.model(
   "Microcontroller",

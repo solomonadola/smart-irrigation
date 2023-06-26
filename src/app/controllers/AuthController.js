@@ -2,7 +2,7 @@ const authService = require("../services/AuthService");
 const {
   validateRegistration,
   validateLogin,
-} = require("../../utils/Validation");
+} = require("../../utils/validation");
 // Handle recived registration data
 exports.handleRegistration = async (req, res) => {
   try {
@@ -33,9 +33,10 @@ exports.handleLogin = async (req, res) => {
     if (error) {
       return res.send(error.details);
     }
+
     const token = await authService.login(req.body);
     res.json({ token });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(401).json({ error: error.message });
   }
 };

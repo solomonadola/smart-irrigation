@@ -1,27 +1,28 @@
-// controllers/notificationController.js
+const jwt = require("jsonwebtoken");
+const Notification = require("../models/notification"); // Assuming you have a Notification model defined
 
-const Notification = require("../models/notification");
-const notificationService = require("../services/notificationService");
+exports.getNotifications = (req, res) => {
+  const token = req.headers.authorization;
 
-// Get latest unread notifications for a user
-exports.getLatestUnreadNotifications = async (req, res) => {
-  try {
-    const userId = req.query.userId; // Assuming userId is provided in the query string
+  // Verify and decode the token to get the user information
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      // Handle token verification error
+      res.status(401).json({ error: "Unauthorized" });
+    } else {
+      const userId = decoded.userId;
 
-    // Retrieve the latest unread notifications using the notification service
-    const latestUnreadNotifications =
-      await notificationService.getLatestUnreadNotifications(userId);
-
-    // Send the latest unread notifications as the response
-    res.json({
-      notifications: latestUnreadNotifications,
-    });
-  } catch (error) {
-    // Handle and send an appropriate error response
-    res
-      .status(500)
-      .json({ error: "Failed to retrieve latest unread notifications." });
-  }
+      // Fetch notifications from the database based on the user ID
+      Notification.find({ userId })
+        .then((notifications) => {
+          res.json({ notifications });
+        })
+        .catch((error) => {
+          // Handle database fetch error
+          res.status(500).json({ error: "Failed to fetch notifications" });
+        });
+    }
+  });
 };
 
 // Mark a notification as read
