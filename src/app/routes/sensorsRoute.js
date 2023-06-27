@@ -7,6 +7,7 @@ const {
   handleSensorData,
   getSensorReadings,
 } = require("../controllers/sensorsController");
+const { verifyToken } = require("../middlewares/verifyToken");
 // GET /req
 
 // send sensors data to store and analyze

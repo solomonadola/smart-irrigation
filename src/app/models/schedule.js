@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const scheduleSchema = mongoose.Schema({
   serial_number: {
     type: String,
-    ref: microcontrollers,
+   required:true,
   },
   start_time: {
     type: Date,

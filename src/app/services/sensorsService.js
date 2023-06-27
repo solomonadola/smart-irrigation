@@ -42,6 +42,8 @@ exports.storeSensorData = async (data) => {
       temperature,
       humidity,
     ]);
+  
+
     // Handle the success response
     return createdSensors;
   } catch (error) {
@@ -59,11 +61,9 @@ exports.getSensorReadings = async (serial_number) => {
       if (!sensors) {
         throw new Error("Sensor not found");
       }
-      console.log(sensors);
 
       // Fetch the sensor readings using the sensor ID
       const sensorids = sensors.map((sensor) => sensor._id);
-      console.log(sensorids);
 
       const sensorReadings = await SensorReading.find({
         sensor: { $in: sensorids },
@@ -71,7 +71,6 @@ exports.getSensorReadings = async (serial_number) => {
         .sort({ readingTime: -1 })
         .limit(3)
         .populate("sensor", "sensing_type -_id");
-      console.log(sensorReadings);
 
       return sensorReadings;
     } catch (error) {

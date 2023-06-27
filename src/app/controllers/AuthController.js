@@ -1,9 +1,12 @@
+const nodemailer = require("nodemailer");
+const { v4: uuidv4 } = require("uuid");
 const authService = require("../services/AuthService");
 const {
   validateRegistration,
   validateLogin,
 } = require("../../utils/validation");
 // Handle recived registration data
+const resetTokens = {};
 exports.handleRegistration = async (req, res) => {
   try {
     // the validation of data goes here

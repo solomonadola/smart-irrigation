@@ -1,6 +1,8 @@
 // controllers/sensorsController.js
 
 const sensorsService = require("../services/sensorsService");
+const { Schedule } = require("../models/schedule");
+const { Notification } = require("../models/notification");
 
 // Handle the received data from the sensor
 const getAnalyzedData = async (data) => {
@@ -20,6 +22,23 @@ exports.handleSensorData = async (req, res) => {
     // the validation of data goes here or in the service handler
     const sensorData = await sensorsService.storeSensorData(req.body);
     const prediction = await getAnalyzedData(req.body);
+    //handle the schedule login down here
+    const { serial_number } = req.body;
+    const start_time = new Date(Date.now() + prediction * 60 * 60 * 1000);
+    // Create a new schedule instance
+    const schedule = new Schedule({
+      serial_number,
+      start_time,
+    });
+    const notification = new Notification({
+      serial_number,
+      body: "the irrigation is scheduled for " + start_time,
+    });
+
+    // Save the schedule to the database
+    await schedule.save();
+    await notification.save();
+
     res.status(200).json({
       predict: prediction,
       sensorData: sensorData,
