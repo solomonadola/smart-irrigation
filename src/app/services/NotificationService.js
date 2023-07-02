@@ -13,6 +13,13 @@ exports.getLatestUnreadNotifications = async (serial_number) => {
     })
       .sort({ readingTime: -1 })
       .limit(10);
+    const notificationIds = unreadNotifications.map(
+      (notification) => notification._id
+    );
+    await Notification.updateMany(
+      { _id: { $in: notificationIds } },
+      { $set: { read: "read" } }
+    );
     return unreadNotifications;
   } catch (error) {
     console.log(error);
