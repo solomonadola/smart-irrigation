@@ -1,4 +1,6 @@
 // controllers/sensorsController.js
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const sensorsService = require("../services/sensorsService");
 const { Schedule } = require("../models/schedule");
@@ -40,8 +42,8 @@ exports.handleSensorData = async (req, res) => {
     await notification.save();
 
     res.status(200).json({
+      message: "success",
       predict: prediction,
-      sensorData: sensorData,
     });
   } catch (error) {
     console.error(error);
@@ -50,13 +52,12 @@ exports.handleSensorData = async (req, res) => {
 };
 exports.getSensorReadings = async (req, res) => {
   try {
-    const { serial_number } = req.params;
-
-    const sensorReadings = await sensorsService.getSensorReadings(
+    const token = req.headers.authorization;
+    const { serial_number } = jwt.verify(token, process.env.JWT_SECRET);
+    const { sensorReadings, schedule } = await sensorsService.getSensorReadings(
       serial_number
     );
-
-    res.json({ sensorReadings });
+    res.json({ sensorReadings, schedule });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch sensor readings" });

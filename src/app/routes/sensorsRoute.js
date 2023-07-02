@@ -12,6 +12,6 @@ const { verifyToken } = require("../middlewares/verifyToken");
 
 // send sensors data to store and analyze
 router.post("/data", handleSensorData);
-router.get("/data/:serial_number", getSensorReadings);
+router.get("/data", getSensorReadings);
 
 module.exports = router;

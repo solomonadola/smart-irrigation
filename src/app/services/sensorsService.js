@@ -3,6 +3,7 @@
 const SensorReading = require("../models/sensor_reading");
 const Sensor = require("../models/sensor");
 const { prediction } = require("../ml/ml-knn");
+const { Schedule } = require("../models/schedule");
 
 // Store sensor data in the database
 exports.predictAction = async (sensorData) => {
@@ -42,7 +43,6 @@ exports.storeSensorData = async (data) => {
       temperature,
       humidity,
     ]);
-  
 
     // Handle the success response
     return createdSensors;
@@ -59,8 +59,12 @@ exports.getSensorReadings = async (serial_number) => {
       const sensors = await Sensor.find({ serial_number });
 
       if (!sensors) {
-        throw new Error("Sensor not found");
+        throw new Error("cant get data sensor not found");
       }
+      const schedule = await Schedule.find({ serial_number })
+        .sort({ start_time: -1 })
+        .limit(2);
+      console.log(schedule);
 
       // Fetch the sensor readings using the sensor ID
       const sensorids = sensors.map((sensor) => sensor._id);
@@ -72,7 +76,7 @@ exports.getSensorReadings = async (serial_number) => {
         .limit(3)
         .populate("sensor", "sensing_type -_id");
 
-      return sensorReadings;
+      return { sensorReadings, schedule };
     } catch (error) {
       throw new Error("Failed to fetch sensor readings");
     }

@@ -67,11 +67,8 @@ exports.login = async (loginData) => {
 
   // Generate a JSON Web Token (JWT)
   const token = jwt.sign(
-    { userId: user.serial_number },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: "1w",
-    }
+    { serial_number: user.serial_number },
+    process.env.JWT_SECRET
   );
 
   return token;
